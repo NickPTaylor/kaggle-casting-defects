@@ -26,8 +26,8 @@ from keras.layers import Dense, Conv2D, Flatten, MaxPool2D
 from keras.callbacks import ModelCheckpoint
 from sklearn.metrics import confusion_matrix
 
-from source.utils import utils
-from source.plots import plots
+from utils.casting_defects_utils import casting_defects_utils
+from utils.casting_defects_plots import casting_defects_plots
 
 # Global parameters.
 SEED_VALUE = 20200316
@@ -49,16 +49,18 @@ trainval_datagen = ImageDataGenerator(rescale=1. / 255, validation_split=0.2)
 test_datagen = ImageDataGenerator(rescale=1. / 255)
 
 # Show/review example images from generator.
-example_images = utils.generate_examples(
+example_images = casting_defects_utils.generate_examples(
     no_examples=5,
     idg=trainval_datagen,
     directory=train_dir,
     target_size=(300, 300),
     color_mode='grayscale',
     seed=SEED_VALUE)
-plots.plot_examples(example_images,
-                    output_file=output_dir / 'example_images.png',
-                    figsize=(8, 4))
+casting_defects_plots.plot_examples(
+    example_images,
+    output_file=output_dir / 'example_images.png',
+    figsize=(8, 4)
+)
 
 # Setup generators for train, validation and test data sets.
 train_generator = trainval_datagen.flow_from_directory(
@@ -126,7 +128,8 @@ training = model.fit_generator(
 )
 
 # Plot training curves.
-plots.plot_learn(training, output_file=output_dir / 'training_curve.png')
+casting_defects_plots.plot_learn(training,
+                                 output_file=output_dir / 'training_curve.png')
 
 # Evaluate accuracy.
 test_loss, test_acc = model.evaluate_generator(test_generator)
@@ -141,5 +144,6 @@ labels = [labels[0], labels[1]]
 
 cm = confusion_matrix(pred_class, true_class)
 
-plots.plot_confusion_matrix(cm, labels=labels,
-                            output_file=output_dir / 'confusion_matrix.png')
+casting_defects_plots.plot_confusion_matrix(
+    cm, labels=labels, output_file=output_dir / 'confusion_matrix.png'
+)

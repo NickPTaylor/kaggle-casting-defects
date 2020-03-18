@@ -1,0 +1,17 @@
+{
+  "id": "nickptaylor/casting-defects-utils",
+  "id_no": 8459471,
+  "title": "casting_defects_utils",
+  "code_file": "casting_defects_utils.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "keywords": [
+    "utility script"
+  ],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "competition_sources": []
+}
