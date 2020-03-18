@@ -6,12 +6,15 @@
   "language": "python",
   "kernel_type": "notebook",
   "is_private": true,
-  "enable_gpu": false,
+  "enable_gpu": true,
   "enable_internet": false,
   "keywords": [],
   "dataset_sources": [
     "ravirajsinh45/real-life-industrial-dataset-of-casting-product"
   ],
-  "kernel_sources": [],
+  "kernel_sources": [
+    "nickptaylor/casting-defects-plots",
+    "nickptaylor/casting-defects-utils"
+  ],
   "competition_sources": []
 }
