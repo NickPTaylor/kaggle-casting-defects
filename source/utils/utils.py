@@ -4,9 +4,10 @@ Utility functions
 
 import pathlib
 import numpy as np
+from collections import Counter
 from typing import Optional, Dict, Any
 
-from keras_preprocessing.image import ImageDataGenerator
+from keras_preprocessing.image import ImageDataGenerator, DirectoryIterator
 
 def generate_examples(no_examples: int, idg: ImageDataGenerator,
                       directory: pathlib.PosixPath, seed: Optional[int] = None,
@@ -33,3 +34,10 @@ def generate_examples(no_examples: int, idg: ImageDataGenerator,
         img_generators.update({cls: next(flow_img)})
 
     return img_generators
+
+def summarise_classes(di: DirectoryIterator) -> Counter:
+    """
+    Summarise number of classes available from a DirectoryIterator.
+    """
+    class_lookup = {v: k for k, v in di.class_indices.items()}
+    return Counter([class_lookup[cls] for cls in di.classes])

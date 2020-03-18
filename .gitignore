@@ -1,6 +1,7 @@
-**/scratch.py
-**/inputs/**
-data
+**/scratch
+**/data
+**/input
+**/output
 
 ##################################################################################################################
 # JetBrains .gitignore from https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
