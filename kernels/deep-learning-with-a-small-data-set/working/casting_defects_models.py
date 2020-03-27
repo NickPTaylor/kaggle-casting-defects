@@ -2,6 +2,7 @@ import pathlib
 import pickle
 from uuid import uuid4
 import numpy as np
+from typing import List
 
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
@@ -56,7 +57,8 @@ class CastingDefectModels:
         self.ensemble_history = None
 
     def generate_examples(self, nrows: int, ncols: int,
-                          random_state: int = 42) -> plt.Figure:
+                          random_state: int = 42,
+                          figsize: List[float] = [8, 4]) -> plt.Figure:
 
         """
         Generate a plot of examples of pre-processed images.
@@ -65,11 +67,12 @@ class CastingDefectModels:
         :param ncols: Number of columns of example images per class
         :param random_state: Seed to use for generating images (for
             reproducibility)
+        :param figsize: size of figure in inches
         :return: A plt.Figure object.
         """
 
         # Setup plot.
-        fig = plt.figure(figsize=[8, 4])
+        fig = plt.figure(figsize=figsize)
         fig.tight_layout()
 
         # Get list of classes.
