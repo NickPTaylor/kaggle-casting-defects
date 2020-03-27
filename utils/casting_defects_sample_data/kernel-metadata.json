@@ -1,0 +1,16 @@
+{
+  "id": "nickptaylor/casting-defects-sample-data",
+  "title": "casting_defects_sample_data",
+  "code_file": "casting_defects_sample_data.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "true",
+  "enable_gpu": "false",
+   "keywords": [
+    "utility script"
+  ],
+  "enable_internet": "false",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": []
+}

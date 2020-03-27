@@ -2,6 +2,7 @@
 **/data
 **/input
 **/output
+**/sample_data
 
 ##################################################################################################################
 # JetBrains .gitignore from https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore

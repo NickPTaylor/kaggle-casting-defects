@@ -4,11 +4,15 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/kernels/identification-of-casting-defects/working" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/notebooks/simple-convolutional-nn/working" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/kernels/deep-learning-with-small-data-set/working" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/kernels/deep-learning-with-a-small-data-set/working" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">
+    <option name="format" value="REST" />
+    <option name="myDocStringFormat" value="reStructuredText" />
     <option name="renderExternalDocumentation" value="true" />
   </component>
 </module>
