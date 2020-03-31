@@ -2,7 +2,7 @@ import pathlib
 import pickle
 from uuid import uuid4
 import numpy as np
-from typing import List
+from typing import List, Tuple
 
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
@@ -20,17 +20,19 @@ class CastingDefectModels:
                  trainval_datagen: ImageDataGenerator,
                  test_datagen: ImageDataGenerator,
                  model: Sequential,
+                 target_size: Tuple[int] = (300, 300),
                  no_epochs: int = 5,
                  batch_size: int = 64) -> None:
 
         self.train_dir = train_dir
+        self.target_size = target_size
         self.trainval_datagen = trainval_datagen
         self.model = model
         self.no_epochs = no_epochs
         self.batch_size = batch_size
         self.train_generator = trainval_datagen.flow_from_directory(
             train_dir,
-            target_size=(300, 300),
+            target_size=self.target_size,
             color_mode='grayscale',
             batch_size=batch_size,
             class_mode='binary',
@@ -38,7 +40,7 @@ class CastingDefectModels:
         )
         self.validation_generator = trainval_datagen.flow_from_directory(
             train_dir,
-            target_size=(300, 300),
+            target_size=self.target_size,
             color_mode='grayscale',
             batch_size=batch_size,
             class_mode='binary',
@@ -99,13 +101,14 @@ class CastingDefectModels:
         return fig
 
     def train_models(self, no_models: int = 1,
-                     save_results: bool = True) -> None:
+                     save_results: bool = True, verbose: int = 0) -> None:
 
         """
         Train deep learning models.
 
         :param no_models: No of models to train.
         :param save_results: Should results be saved?
+        :param verbose: Verbosity of keras training.
         """
 
         # Create directories to save history and models in if the do not exist.
@@ -132,7 +135,7 @@ class CastingDefectModels:
                 validation_data=self.validation_generator,
                 validation_steps=val_steps,
                 epochs=self.no_epochs,
-                verbose=0
+                verbose=verbose
             )
 
             #  Save models and histories if required.
@@ -185,17 +188,24 @@ class CastingDefectModels:
 
         return ensemble_hist
 
-    def plot_ensemble_history(self):
+    def plot_ensemble_history(self, metric: str = 'loss'):
+        """
+        Plot ensemble history.
+
+        :param metric: Metric to show i.e. 'loss' or 'accuracy'.
+        :return:
+        """
         if self.ensemble_history is not None:
             fig, ax = plt.subplots()
-            for p in ('loss', 'val_loss'):
+            plots = (elem.format(metric) for elem in ('{}', 'val_{}'))
+            for p in plots:
                 ax.errorbar(x=range(1, self.no_epochs + 1),
                             y=self.ensemble_history[p]['mean'],
                             yerr=1.96 * self.ensemble_history[p]['std_err'],
                             fmt='o-', capsize=5, label=p)
             ax.set_title('Training curve with 95% error bars')
             ax.set_xlabel('Epochs')
-            ax.set_ylabel('Loss')
+            ax.set_ylabel(metric)
             ax.legend()
             ax.xaxis.set_major_locator(MaxNLocator(integer=True))
         else:
